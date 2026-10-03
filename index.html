@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Registration</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <h1>📋 Course Registration</h1>
+
+      <!-- Success message (hidden by default, shown via JS) -->
+      <div id="successMsg" class="success-msg" role="status" aria-live="polite">
+        ✅ Your details are submitted successfully
+      </div>
+
+      <form id="registrationForm">
+        <fieldset>
+          <legend>Personal Details</legend>
+          <table>
+            <tr>
+              <td><label for="user_name">First Name</label></td>
+              <td>
+                <input
+                  type="text"
+                  name="user_name"
+                  id="user_name"
+                  placeholder="Ex: Ramya"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="lastname">Surname</label></td>
+              <td>
+                <input
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  placeholder="Ex: B"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="user_tell">Mobile Number</label></td>
+              <td>
+                <input
+                  type="tel"
+                  name="user_tell"
+                  id="user_tell"
+                  placeholder="Ex: 9876543210"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="user_email">Email</label></td>
+              <td>
+                <input
+                  type="email"
+                  name="user_email"
+                  id="user_email"
+                  placeholder="Ex: name@gmail.com"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="pass">Password</label></td>
+              <td>
+                <input
+                  type="password"
+                  name="pass"
+                  id="pass"
+                  placeholder="••••••••"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="confrm_pass">Confirm Password</label></td>
+              <td>
+                <input
+                  type="password"
+                  name="confrm_pass"
+                  id="confrm_pass"
+                  placeholder="••••••••"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="age">Age</label></td>
+              <td>
+                <input
+                  type="number"
+                  min="18"
+                  max="65"
+                  required
+                  name="age"
+                  id="age"
+                  placeholder="18 - 65"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="dob">Date of Birth</label></td>
+              <td><input type="date" name="dob" id="dob" required /></td>
+            </tr>
+            <tr>
+              <td><label for="Gender">Gender</label></td>
+              <td>
+                <input
+                  type="radio"
+                  value="male"
+                  name="Gender"
+                  id="gender_male"
+                  checked
+                />
+                <label for="gender_male">Male</label>
+                <input
+                  type="radio"
+                  value="female"
+                  name="Gender"
+                  id="gender_female"
+                />
+                <label for="gender_female">Female</label>
+                <input
+                  type="radio"
+                  value="others"
+                  name="Gender"
+                  id="gender_other"
+                />
+                <label for="gender_other">Others</label>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="Country">Select Country</label></td>
+              <td>
+                <select name="Country" id="Country">
+                  <option value="" disabled>--select--</option>
+                  <option value="india" selected>India</option>
+                  <option value="Russia">Russia</option>
+                  <option value="China">China</option>
+                  <option value="Tokyo">Tokyo</option>
+                  <option value="Ice Land">Ice Land</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="picture">Upload Picture</label></td>
+              <td><input type="file" name="picture" id="picture" /></td>
+            </tr>
+          </table>
+        </fieldset>
+
+        <fieldset>
+          <legend>Course Details</legend>
+          <table>
+            <tr>
+              <td><label for="Course">Select Course</label></td>
+              <td>
+                <select name="Course" id="Course">
+                  <option value="" disabled>--select--</option>
+                  <option value="java" selected>Java Full Stack with AI</option>
+                  <option value="python">Python Full Stack with AI</option>
+                  <option value="data">Data Analytics with AI</option>
+                  <option value="genai">Generative AI</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="display: block; margin-top: 0.5rem">
+                <label
+                  for="Programming"
+                  style="font-weight: 600; color: var(--primary)"
+                >
+                  Programming Knowledge (0-5)
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="display: block">
+                <input
+                  type="range"
+                  min="0"
+                  max="5"
+                  name="Programming"
+                  id="Programming"
+                  value="0"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="abtme">About Yourself</label></td>
+              <td>
+                <textarea
+                  rows="4"
+                  name="abtme"
+                  id="abtme"
+                  placeholder="Ex: I am Ramya, passionate about full‑stack development..."
+                ></textarea>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+
+        <button type="submit">✨ Submit Registration</button>
+      </form>
+    </div>
+
+    <script>
+      /* ---------- SUCCESS MESSAGE + FORM SUBMIT ---------- */
+      const form = document.getElementById("registrationForm");
+      const successMsg = document.getElementById("successMsg");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        successMsg.classList.add("show");
+        form.reset();
+        // reset range fill back to 0 after form reset
+        updateRangeFill(rangeInput);
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        setTimeout(() => {
+          successMsg.classList.remove("show");
+          window.location.reload();
+        }, 3000);
+      });
+
+      /* ---------- RANGE SLIDER DYNAMIC FILL ---------- */
+      const rangeInput = document.getElementById("Programming");
+
+      function updateRangeFill(el) {
+        const min = Number(el.min);
+        const max = Number(el.max);
+        const value = Number(el.value);
+        // Calculate percentage of filled track
+        const percent = ((value - min) / (max - min)) * 100;
+        // Set CSS variable for the background gradient
+        el.style.setProperty("--range-fill", percent + "%");
+      }
+
+      // Update on drag / input
+      rangeInput.addEventListener("input", function () {
+        updateRangeFill(this);
+      });
+
+      // Initialize on page load (starts at 0 → all light)
+      updateRangeFill(rangeInput);
+    </script>
+  </body>
+</html>
